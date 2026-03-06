@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>平行人生鏡像 · 首頁</title>
+    <!-- 字型保持一致：Inter + Press Start 2P -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0b1a;
+            color: #e6f0ff;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        /* ===== 像素銀河背景 ===== */
+        .pixel-galaxy {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-color: #0a0722;
+            background-image: 
+                radial-gradient(circle at 30% 40%, #6b4f9f 0%, #6b4f9f 3%, transparent 4%),
+                radial-gradient(circle at 32% 42%, #8f6bc6 0%, #8f6bc6 4%, transparent 5%),
+                radial-gradient(circle at 28% 44%, #a17fd9 0%, #a17fd9 5%, transparent 6%),
+                radial-gradient(circle at 75% 65%, #3f3170 0%, #3f3170 4%, transparent 6%),
+                radial-gradient(circle at 78% 62%, #6550a3 0%, #6550a3 5%, transparent 7%),
+                repeating-linear-gradient(transparent, transparent 19px, rgba(255, 255, 255, 0.05) 19px, rgba(255, 255, 255, 0.05) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255, 255, 255, 0.05) 19px, rgba(255, 255, 255, 0.05) 20px);
+            background-size: 200px 200px, 180px 180px, 220px 220px, auto, auto, 20px 20px, 20px 20px;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+            background-position: 10% 20%, 12% 22%, 8% 18%, 80% 70%, 82% 68%, 0 0, 0 0;
+            filter: contrast(1.2) brightness(0.9);
+        }
+
+        .pixel-galaxy::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 85%, #b2a0e6 0%, #b2a0e6 2px, transparent 3px),
+                radial-gradient(circle at 92% 33%, #f5e9ff 0%, #f5e9ff 2px, transparent 4px),
+                radial-gradient(circle at 47% 12%, #c9b1ff 0%, #c9b1ff 3px, transparent 4px),
+                radial-gradient(circle at 63% 91%, #a98cf0 0%, #a98cf0 2px, transparent 3px),
+                radial-gradient(circle at 5% 45%, #bba5ff 0%, #bba5ff 2px, transparent 3px);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(1px);
+        }
+
+        /* ===== 導航欄 ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #4c3f78;
+            image-rendering: pixelated;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: #cbadff;
+            filter: drop-shadow(0 0 4px #8b6bc0);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #f0e4ff, #cbb2ff, #e7c1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            font-weight: 500;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: #d7c7ff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.1s;
+            border-bottom: 3px solid transparent;
+            padding-bottom: 6px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #b28eff;
+            color: #ffffff;
+            text-shadow: 0 0 5px #b28eff;
+        }
+
+        .active-page {
+            border-bottom-color: #b28eff !important;
+            color: #ffffff !important;
+        }
+
+        /* ===== 通用標題 ===== */
+        h1 {
+            font-size: 2.4rem;
+            color: #fff1d6;
+            text-shadow: 4px 4px 0 #4f368a, 6px 6px 0 #1d1738;
+            margin-bottom: 16px;
+            font-family: 'Press Start 2P', cursive;
+            word-break: break-word;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffe9a7;
+            text-shadow: 3px 3px 0 #614c9e;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 60px 0 60px 0;
+            text-align: center;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: #f0e2ff;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            background: rgba(22, 10, 50, 0.7);
+            backdrop-filter: blur(2px);
+            padding: 16px 24px;
+            border: 3px solid #6d50b0;
+            box-shadow: 8px 8px 0 #2d1d55;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ===== 核心概念 ===== */
+        .core-concept {
+            background: rgba(15, 5, 40, 0.8);
+            backdrop-filter: blur(2px);
+            border: 4px solid #7f64c2;
+            padding: 48px 40px;
+            margin: 40px 0 60px 0;
+            box-shadow: 12px 12px 0 #2b194f;
+            text-align: center;
+        }
+
+        .core-concept p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #f0dfff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        /* ===== 三張功能卡片（可點擊進入各功能頁） ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0 80px;
+        }
+
+        .card {
+            background: #1c1135;
+            border: 4px solid #836ac8;
+            padding: 36px 24px 40px 24px;
+            text-align: center;
+            transition: all 0.1s ease;
+            box-shadow: 8px 8px 0 #2f1f57;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translate(-4px, -4px);
+            border-color: #c7adff;
+            box-shadow: 12px 12px 0 #4e3585;
+            background: #2a174b;
+        }
+
+        .card-icon {
+            font-size: 3.2rem;
+            margin-bottom: 24px;
+            color: #dbbcff;
+            filter: drop-shadow(2px 2px 0 #553b92);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #ffeac5;
+            text-shadow: 2px 2px 0 #6249a3;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .card p {
+            color: #dbccff;
+            font-size: 0.9rem;
+        }
+
+        /* ===== 使用流程 ===== */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 60px 0 70px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            background: #160e2b;
+            border: 4px solid #6d53b3;
+            padding: 30px 40px;
+            flex-wrap: wrap;
+            box-shadow: 10px 10px 0 #312358;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            min-width: 90px;
+            text-align: center;
+            color: #ffd78c;
+            text-shadow: 4px 4px 0 #7744aa;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .step-content {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .step-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #fade9f;
+            text-shadow: 2px 2px 0 #5a3f96;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .step-action {
+            margin-top: 20px;
+            display: inline-block;
+            background: #22163b;
+            border: 3px solid #8f73df;
+            color: #f0e2ff;
+            padding: 10px 25px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            text-decoration: none;
+            box-shadow: 4px 4px 0 #3f2b70;
+            transition: 0.1s;
+        }
+
+        .step-action:hover {
+            background: #352459;
+            border-color: #bba6ff;
+            box-shadow: 6px 6px 0 #533d88;
+            transform: translate(-2px, -2px);
+        }
+
+        /* ===== 團隊介紹 ===== */
+        .team-section {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-top: 4px solid #5a429b;
+            margin-top: 40px;
+        }
+
+        .team-names {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            font-size: 1.5rem;
+            background: #1f133b;
+            padding: 24px 40px;
+            border: 4px solid #8a6fd1;
+            box-shadow: 10px 10px 0 #382a60;
+            max-width: 700px;
+            margin: 30px auto 0;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .team-names span {
+            color: #ffeaa6;
+            text-shadow: 3px 3px 0 #644aa8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0 40px;
+            border-top: 4px solid #4c3582;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #ebd6ff;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+        }
+
+        @media screen and (max-width: 900px) {
+            h1 { font-size: 1.8rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .step-item { flex-direction: column; align-items: center; text-align: center; }
+            .navbar { flex-direction: column; gap: 16px; }
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="pixel-galaxy"></div>
+
+    <div class="container">
+        <!-- 導航欄：包含所有功能頁面連結 -->
+        <nav class="navbar">
+            <div class="logo-area">
+                <i class="fas fa-cube logo-icon"></i>
+                <span class="logo-text">平行人生鏡像</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active-page">首頁</a>
+                <a href="query.html">查詢宇宙</a>
+                <a href="action.html">提示行動</a>
+                <a href="talk.html">宇宙交談</a>
+            </div>
+        </nav>
+
+        <!-- Hero 區域 -->
+        <section class="hero">
+            <h1>平行宇宙查詢網站</h1>
+            <div class="hero-description">
+                <i class="fas fa-crown"></i> 可以為任何人對另外
+            </div>
+            <p style="font-size: 0.9rem; color: #cbb5ff; font-family: 'Press Start 2P',cursive;">—— 你，從不只有一種可能 ——</p>
+        </section>
+
+        <!-- 核心概念 -->
+        <section class="core-concept">
+            <p>🌌 探索100個平行宇宙中，另一個自己的平凡或不凡人生。<br>每個宇宙的設定都基於現實世界的可能性，讓您更有代入感。</p>
+        </section>
+
+        <!-- 功能介紹 3 張卡片（可點擊進入各功能頁） -->
+        <h2>✦ 核心功能 ✦</h2>
+        <div class="cards-grid">
+            <a href="query.html" class="card">
+                <i class="fas fa-magnifying-glass card-icon"></i>
+                <h3>查詢</h3>
+                <p>輸入三位數代碼，瞬間窺見對應宇宙的另一個你。</p>
+            </a>
+            <a href="action.html" class="card">
+                <i class="fas fa-lightbulb card-icon"></i>
+                <h3>提示行動</h3>
+                <p>未來的結果會變成那個宇宙的你，選擇當下的路徑。</p>
+            </a>
+            <a href="talk.html" class="card">
+                <i class="fas fa-comment-dots card-icon"></i>
+                <h3>宇宙交談</h3>
+                <p>突破維度限制，和其他宇宙的你對話、借鑑人生。</p>
+            </a>
+        </div>
+
+        <!-- 使用流程（每個步驟都有對應功能頁連結） -->
+        <h2>⚡ 使用流程 ⚡</h2>
+        <div class="steps-container">
+            <!-- Step 1 連結到查詢頁 -->
+            <div class="step-item">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>輸入三位數代碼</h3>
+                    <p>選擇你想探索的宇宙編號 001 至 100，每個數字通往獨一無二的現實。</p>
+                    <a href="query.html" class="step-action"><i class="fas fa-magnifying-glass"></i> 前往查詢</a>
+                </div>
+            </div>
+
+            <!-- Step 2 連結到提示行動頁 -->
+            <div class="step-item">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>現實職業檔案</h3>
+                    <p>查看該宇宙的自己：職業、身高、體重、技能、感情狀況... 部分宇宙標註「已故」或「未來人」。</p>
+                    <a href="action.html" class="step-action"><i class="fas fa-lightbulb"></i> 查看提示</a>
+                </div>
+            </div>
+
+            <!-- Step 3 連結到宇宙交談頁 -->
+            <div class="step-item">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>和其他宇宙交談</h3>
+                    <p>選擇另一個宇宙版本的你，開始超越時空的對話。</p>
+                    <a href="talk.html" class="step-action"><i class="fas fa-comment-dots"></i> 開始交談</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 團隊介紹 -->
+        <section class="team-section">
+            <h2>👥 鏡像創造者</h2>
+            <div class="team-names">
+                <span>吳頌禧</span>
+                <span>黎家睿</span>
+            </div>
+            <p style="margin-top: 24px; color: #ccb6ff;">Made with 🧊 像素跨越維度</p>
+        </section>
+
+        <footer>
+            <p>🌐 探索所有功能：</p>
+            <p style="margin-top: 10px;">
+                <a href="query.html">查詢宇宙</a> · 
+                <a href="action.html">提示行動</a> · 
+                <a href="talk.html">宇宙交談</a>
+            </p>
+            <p style="font-size: 0.75rem; margin-top: 20px; color: #8a72c0;">© 平行人生鏡像 · 三個功能頁面完整連結</p>
+        </footer>
+    </div>
+</body>
+</html>

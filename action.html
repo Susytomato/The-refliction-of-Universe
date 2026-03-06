@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提示行動 · 平行人生鏡像</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:#0c0b1a; color:#e6f0ff; position:relative; }
+        .pixel-galaxy { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; background-color:#0a0722; 
+            background-image: radial-gradient(circle at 30%40%,#6b4f9f 0%,#6b4f9f 3%,transparent 4%),
+            radial-gradient(circle at 32%42%,#8f6bc6 0%,#8f6bc6 4%,transparent 5%),
+            radial-gradient(circle at 28%44%,#a17fd9 0%,#a17fd9 5%,transparent 6%),
+            radial-gradient(circle at 75%65%,#3f3170 0%,#3f3170 4%,transparent 6%),
+            radial-gradient(circle at 78%62%,#6550a3 0%,#6550a3 5%,transparent 7%),
+            repeating-linear-gradient(transparent,transparent 19px,rgba(255,255,255,0.05)19px,rgba(255,255,255,0.05)20px),
+            repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(255,255,255,0.05)19px,rgba(255,255,255,0.05)20px);
+            background-size:200px 200px,180px 180px,220px 220px,auto,auto,20px 20px,20px 20px;
+            background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat;
+            background-position:10%20%,12%22%,8%18%,80%70%,82%68%,0 0,0 0; filter:contrast(1.2) brightness(0.9); }
+        .pixel-galaxy::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%;
+            background-image:radial-gradient(circle at 15%85%,#b2a0e6 0%,#b2a0e6 2px,transparent 3px),
+            radial-gradient(circle at 92%33%,#f5e9ff 0%,#f5e9ff 2px,transparent 4px),
+            radial-gradient(circle at 47%12%,#c9b1ff 0%,#c9b1ff 3px,transparent 4px),
+            radial-gradient(circle at 63%91%,#a98cf0 0%,#a98cf0 2px,transparent 3px),
+            radial-gradient(circle at 5%45%,#bba5ff 0%,#bba5ff 2px,transparent 3px);
+            background-repeat:no-repeat; background-size:100%100%; opacity:0.8; pointer-events:none; }
+        .container { max-width:1280px; margin:0 auto; padding:0 24px; position:relative; z-index:2; backdrop-filter:blur(1px); }
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:24px 0; flex-wrap:wrap; border-bottom:2px solid #4c3f78; }
+        .logo-area { display:flex; align-items:center; gap:12px; }
+        .logo-icon { font-size:2rem; color:#cbadff; filter:drop-shadow(0 0 4px #8b6bc0); }
+        .logo-text { background:linear-gradient(135deg,#f0e4ff,#cbb2ff,#e7c1ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-family:'Press Start 2P',cursive; font-size:1.3rem; }
+        .nav-links { display:flex; gap:36px; flex-wrap:wrap; }
+        .nav-links a { color:#d7c7ff; text-decoration:none; font-family:'Press Start 2P',cursive; font-size:0.8rem; border-bottom:3px solid transparent; padding-bottom:6px; }
+        .nav-links a:hover, .active-page { border-bottom-color:#b28eff; color:#fff; }
+        
+        h1 { font-size:2.4rem; color:#fff1d6; text-shadow:4px 4px 0 #4f368a; font-family:'Press Start 2P',cursive; text-align:center; margin:40px 0; }
+        .action-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; margin:40px 0; }
+        .action-card { background:#1c1135; border:4px solid #836ac8; padding:30px; box-shadow:8px 8px 0 #2f1f57; }
+        .action-card h3 { color:#ffeac5; font-family:'Press Start 2P',cursive; font-size:1.2rem; margin-bottom:20px; }
+        .future-badge { background:#1d3a3a; border:2px solid #56bfb0; display:inline-block; padding:8px 15px; margin:15px 0; font-family:'Press Start 2P',cursive; font-size:0.7rem; }
+        .dead-badge { background:#2d1b2b; border:2px solid #b15a6b; display:inline-block; padding:8px 15px; margin:15px 0; font-family:'Press Start 2P',cursive; font-size:0.7rem; }
+        .query-button { background:#22163b; border:4px solid #8f73df; color:#f0e2ff; padding:12px 35px; font-family:'Press Start 2P',cursive; font-size:1rem; display:inline-block; text-decoration:none; box-shadow:6px 6px 0 #3f2b70; margin:10px; }
+        .query-button:hover { background:#352459; transform:translate(-2px,-2px); box-shadow:8px 8px 0 #533d88; }
+        .footer-links { text-align:center; padding:30px 0; border-top:4px solid #4c3582; margin-top:30px; }
+        .footer-links a { color:#ebd6ff; margin:0 15px; }
+        .profession-tags { display:flex; flex-wrap:wrap; gap:10px; margin:20px 0; }
+        .tag { background:#21173b; border:3px solid #6c50b0; padding:6px 15px; font-family:'Press Start 2P',cursive; font-size:0.65rem; }
+    </style>
+</head>
+<body>
+    <div class="pixel-galaxy"></div>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo-area"><i class="fas fa-cube logo-icon"></i><span class="logo-text">平行人生鏡像</span></div>
+            <div class="nav-links">
+                <a href="index.html">首頁</a>
+                <a href="query.html">查詢宇宙</a>
+                <a href="action.html" class="active-page">提示行動</a>
+                <a href="talk.html">宇宙交談</a>
+            </div>
+        </nav>
+        
+        <h1>✦ 提示行動 ✦</h1>
+        <p style="text-align:center; font-family:'Press Start 2P',cursive; font-size:0.9rem; margin-bottom:30px;">你今日的選擇，會成為哪個宇宙的你？</p>
+        
+        <div class="action-grid">
+            <div class="action-card">
+                <h3>⚡ 學習程式設計</h3>
+                <p>如果你現在開始每天學習程式設計2小時</p>
+                <div class="future-badge"><i class="fas fa-rocket"></i> 未來人 (50年後)</div>
+                <div class="profession-tags">
+                    <span class="tag">程式設計師</span>
+                    <span class="tag">AI工程師</span>
+                    <span class="tag">區塊鏈專家</span>
+                </div>
+                <p>→ 進入宇宙056：年薪500萬的技術總監</p>
+            </div>
+            
+            <div class="action-card">
+                <h3>⚡ 選擇成為消防員</h3>
+                <p>如果你明天去報考消防員</p>
+                <div class="dead-badge"><i class="fas fa-skull"></i> 已故 (成為歷史)</div>
+                <div class="profession-tags">
+                    <span class="tag">消防員</span>
+                    <span class="tag">救人英雄</span>
+                </div>
+                <p>→ 宇宙077：因救火而犧牲，成為傳奇</p>
+            </div>
+            
+            <div class="action-card">
+                <h3>⚡ 鼓起勇氣告白</h3>
+                <p>如果你今天向暗戀對象告白</p>
+                <div class="future-badge"><i class="fas fa-heart"></i> 幸福宇宙</div>
+                <div class="profession-tags">
+                    <span class="tag">已婚</span>
+                    <span class="tag">兩個孩子</span>
+                </div>
+                <p>→ 宇宙042：美滿家庭，事業穩定</p>
+            </div>
+            
+            <div class="action-card">
+                <h3>⚡ 辭職創業</h3>
+                <p>如果你這個月辭職開始創業</p>
+                <div class="dead-badge"><i class="fas fa-skull"></i> 已故</div>
+                <div class="profession-tags">
+                    <span class="tag">創業失敗</span>
+                    <span class="tag">負債</span>
+                </div>
+                <p>→ 宇宙099：晚年潦倒的教訓</p>
+            </div>
+            
+            <div class="action-card">
+                <h3>⚡ 出國留學</h3>
+                <p>如果你申請出國留學</p>
+                <div class="future-badge"><i class="fas fa-rocket"></i> 未來人</div>
+                <div class="profession-tags">
+                    <span class="tag">教授</span>
+                    <span class="tag">諾貝爾獎</span>
+                </div>
+                <p>→ 宇宙007：成為頂尖科學家</p>
+            </div>
+            
+            <div class="action-card">
+                <h3>⚡ 保持現狀</h3>
+                <p>如果你什麼都不改變</p>
+                <div class="profession-tags">
+                    <span class="tag">教師</span>
+                    <span class="tag">公務員</span>
+                </div>
+                <p>→ 宇宙default：平凡但安穩的人生</p>
+            </div>
+        </div>
+        
+        <div style="text-align:center; margin:50px 0;">
+            <a href="query.html" class="query-button"><i class="fas fa-search"></i> 查詢你的宇宙</a>
+            <a href="talk.html" class="query-button"><i class="fas fa-comment"></i> 與宇宙交談</a>
+        </div>
+        
+        <div class="footer-links">
+            <a href="index.html">← 回首頁</a> | 
+            <a href="query.html">查詢宇宙</a> | 
+            <a href="talk.html">宇宙交談</a>
+        </div>
+    </div>
+</body>
+</html>

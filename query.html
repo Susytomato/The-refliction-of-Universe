@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查詢宇宙 · 平行人生鏡像</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:#0c0b1a; color:#e6f0ff; position:relative; }
+        .pixel-galaxy { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; background-color:#0a0722; 
+            background-image: radial-gradient(circle at 30%40%,#6b4f9f 0%,#6b4f9f 3%,transparent 4%),
+            radial-gradient(circle at 32%42%,#8f6bc6 0%,#8f6bc6 4%,transparent 5%),
+            radial-gradient(circle at 28%44%,#a17fd9 0%,#a17fd9 5%,transparent 6%),
+            radial-gradient(circle at 75%65%,#3f3170 0%,#3f3170 4%,transparent 6%),
+            radial-gradient(circle at 78%62%,#6550a3 0%,#6550a3 5%,transparent 7%),
+            repeating-linear-gradient(transparent,transparent 19px,rgba(255,255,255,0.05)19px,rgba(255,255,255,0.05)20px),
+            repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(255,255,255,0.05)19px,rgba(255,255,255,0.05)20px);
+            background-size:200px 200px,180px 180px,220px 220px,auto,auto,20px 20px,20px 20px;
+            background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat;
+            background-position:10%20%,12%22%,8%18%,80%70%,82%68%,0 0,0 0; filter:contrast(1.2) brightness(0.9); }
+        .pixel-galaxy::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%;
+            background-image:radial-gradient(circle at 15%85%,#b2a0e6 0%,#b2a0e6 2px,transparent 3px),
+            radial-gradient(circle at 92%33%,#f5e9ff 0%,#f5e9ff 2px,transparent 4px),
+            radial-gradient(circle at 47%12%,#c9b1ff 0%,#c9b1ff 3px,transparent 4px),
+            radial-gradient(circle at 63%91%,#a98cf0 0%,#a98cf0 2px,transparent 3px),
+            radial-gradient(circle at 5%45%,#bba5ff 0%,#bba5ff 2px,transparent 3px);
+            background-repeat:no-repeat; background-size:100%100%; opacity:0.8; pointer-events:none; }
+        .container { max-width:1280px; margin:0 auto; padding:0 24px; position:relative; z-index:2; backdrop-filter:blur(1px); }
+
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:24px 0; flex-wrap:wrap; border-bottom:2px solid #4c3f78; }
+        .logo-area { display:flex; align-items:center; gap:12px; }
+        .logo-icon { font-size:2rem; color:#cbadff; filter:drop-shadow(0 0 4px #8b6bc0); }
+        .logo-text { background:linear-gradient(135deg,#f0e4ff,#cbb2ff,#e7c1ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-family:'Press Start 2P',cursive; font-size:1.3rem; }
+        .nav-links { display:flex; gap:36px; flex-wrap:wrap; }
+        .nav-links a { color:#d7c7ff; text-decoration:none; font-family:'Press Start 2P',cursive; font-size:0.8rem; border-bottom:3px solid transparent; padding-bottom:6px; }
+        .nav-links a:hover, .active-page { border-bottom-color:#b28eff; color:#fff; }
+
+        h1 { font-size:2.4rem; color:#fff1d6; text-shadow:4px 4px 0 #4f368a; font-family:'Press Start 2P',cursive; text-align:center; margin:40px 0 20px; }
+        .query-card { background:#160e2b; border:4px solid #6d53b3; padding:40px; margin:30px 0; box-shadow:12px 12px 0 #312358; text-align:center; }
+        .code-input { background:#0e0821; border:4px solid #7f64c2; padding:18px; font-size:2.5rem; width:200px; text-align:center; color:#fade9f; font-family:'Press Start 2P',cursive; box-shadow:5px 5px 0 #2f1f57; }
+        .query-button { background:#22163b; border:4px solid #8f73df; color:#f0e2ff; padding:12px 35px; font-family:'Press Start 2P',cursive; font-size:1rem; display:inline-flex; align-items:center; gap:15px; box-shadow:6px 6px 0 #3f2b70; cursor:pointer; margin-left:15px; text-decoration:none; }
+        .query-button:hover { background:#352459; transform:translate(-2px,-2px); box-shadow:8px 8px 0 #533d88; }
+        .result-section { background:#1c1135; border:4px solid #836ac8; padding:30px; margin:30px 0; box-shadow:10px 10px 0 #2f1f57; }
+        .footer-links { text-align:center; padding:30px 0; border-top:4px solid #4c3582; margin-top:30px; }
+        .footer-links a { color:#ebd6ff; margin:0 15px; }
+        .tag { background:#21173b; border:3px solid #6c50b0; padding:6px 18px; display:inline-block; margin:5px; font-family:'Press Start 2P',cursive; font-size:0.65rem; }
+        .special-tag.dead { background:#2d1b2b; border-color:#b15a6b; color:#ffcbcb; }
+        .special-tag.future { background:#1d3a3a; border-color:#56bfb0; color:#cafff0; }
+        @media (max-width:700px){ .code-input { width:150px; } .query-button { margin-top:15px; margin-left:0; } }
+    </style>
+</head>
+<body>
+    <div class="pixel-galaxy"></div>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo-area"><i class="fas fa-cube logo-icon"></i><span class="logo-text">平行人生鏡像</span></div>
+            <div class="nav-links">
+                <a href="index.html">首頁</a>
+                <a href="query.html" class="active-page">查詢宇宙</a>
+                <a href="action.html">提示行動</a>
+                <a href="talk.html">宇宙交談</a>
+            </div>
+        </nav>
+        
+        <h1>✦ 宇宙查詢 ✦</h1>
+        
+        <div class="query-card">
+            <div style="font-family:'Press Start 2P',cursive; margin-bottom:25px;">輸入三位數代碼 (001-100)</div>
+            <input type="text" id="codeInput" class="code-input" placeholder="042" maxlength="3">
+            <button class="query-button" id="searchBtn"><i class="fas fa-search"></i> 查詢</button>
+        </div>
+        
+        <div id="result" class="result-section" style="display:none;">
+            <h3 style="font-family:'Press Start 2P',cursive; color:#ffeac5; margin-bottom:20px;" id="resultCode">宇宙 042</h3>
+            <div id="profileContent"></div>
+            <div style="text-align:center; margin-top:30px;">
+                <a href="talk.html" class="query-button" style="display:inline-block;"><i class="fas fa-comment"></i> 與此宇宙交談</a>
+            </div>
+        </div>
+        
+        <div class="footer-links">
+            <a href="index.html">← 回首頁</a> | 
+            <a href="action.html">提示行動</a> | 
+            <a href="talk.html">宇宙交談</a>
+        </div>
+    </div>
+
+    <script>
+        const universeData = {
+            '007': { job:'間諜', tags:['情報員','特務'], height:'178cm', weight:'72kg', gender:'男', looks:'88', skill:'滲透/易容', age:'38', relationship:'錯綜複雜', special:'未來人', specialClass:'future' },
+            '042': { job:'音樂家', tags:['鋼琴家','作曲家'], height:'172cm', weight:'64kg', gender:'女', looks:'91', skill:'絕對音感', age:'29', relationship:'單身', special:'' },
+            '077': { job:'醫師', tags:['外科醫生','無國界醫生'], height:'181cm', weight:'77kg', gender:'男', looks:'76', skill:'顯微手術', age:'45', relationship:'已婚', special:'已故', specialClass:'dead' },
+            '099': { job:'農夫', tags:['有機栽培','自給自足'], height:'169cm', weight:'70kg', gender:'女', looks:'70', skill:'耕作/釀酒', age:'52', relationship:'喪偶', special:'' },
+            '056': { job:'程式設計師', tags:['AI工程師','區塊鏈'], height:'175cm', weight:'68kg', gender:'非二元', looks:'83', skill:'全端開發', age:'31', relationship:'交往中', special:'未來人', specialClass:'future' },
+            'default': { job:'教師', tags:['高中老師','輔導教師'], height:'170cm', weight:'65kg', gender:'女', looks:'80', skill:'心理輔導', age:'41', relationship:'離婚', special:'' }
+        };
+
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            let code = document.getElementById('codeInput').value.trim();
+            if (code.length === 1) code = '00' + code;
+            else if (code.length === 2) code = '0' + code;
+            
+            if (!/^\d{3}$/.test(code)) {
+                alert('請輸入三位數字 (001~100)');
+                return;
+            }
+            
+            const data = universeData[code] || universeData['default'];
+            
+            document.getElementById('resultCode').innerText = `宇宙 ${code}`;
+            
+            let specialHtml = '';
+            if (data.special) {
+                specialHtml = `<span class="tag special-tag ${data.specialClass}"><i class="fas ${data.special === '未來人' ? 'fa-rocket' : 'fa-skull'}"></i> ${data.special}</span>`;
+            }
+            
+            document.getElementById('profileContent').innerHTML = `
+                <div style="border:3px solid #6c50b0; padding:20px; margin:15px 0;">
+                    <div style="margin-bottom:15px;">
+                        <span class="tag">${data.job}</span>
+                        ${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                        ${specialHtml}
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:15px; font-family:'Press Start 2P',cursive; font-size:0.7rem;">
+                        <div><i class="fas fa-ruler"></i> 身高 ${data.height}</div>
+                        <div><i class="fas fa-weight-scale"></i> 體重 ${data.weight}</div>
+                        <div><i class="fas fa-venus-mars"></i> 性別 ${data.gender}</div>
+                        <div><i class="fas fa-star"></i> 顏值 ${data.looks}</div>
+                        <div><i class="fas fa-brain"></i> 技能 ${data.skill}</div>
+                        <div><i class="fas fa-cake-candles"></i> 年齡 ${data.age}</div>
+                        <div><i class="fas fa-heart"></i> 感情 ${data.relationship}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('result').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宇宙交談 · 平行人生鏡像</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:#0c0b1a; color:#e6f0ff; position:relative; }
+        .pixel-galaxy { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; background-color:#0a0722; 
+            background-image: radial-gradient(circle at 30%40%,#6b4f9f 0%,#6b4f9f 3%,transparent 4%),
+            radial-gradient(circle at 32%42%,#8f6bc6 0%,#8f6bc6 4%,transparent 5%),
+            radial-gradient(circle at 28%44%,#a17fd9 0%,#a17fd9 5%,transparent 6%),
+            radial-gradient(circle at 75%65%,#3f3170 0%,#3f3170 4%,transparent 6%),
+            radial-gradient(circle at 78%62%,#6550a3 0%,#6550a3 5%,transparent 7%),
+            repeating-linear-gradient(transparent,transparent 19px,rgba(255,255,255,0.05)19px,rgba(255,255,255,0.05)20px),
+            repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(255,255,255,0.05)19px,rgba(255,255,255,0.05)20px);
+            background-size:200px 200px,180px 180px,220px 220px,auto,auto,20px 20px,20px 20px;
+            background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,repeat,repeat;
+            background-position:10%20%,12%22%,8%18%,80%70%,82%68%,0 0,0 0; filter:contrast(1.2) brightness(0.9); }
+        .pixel-galaxy::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%;
+            background-image:radial-gradient(circle at 15%85%,#b2a0e6 0%,#b2a0e6 2px,transparent 3px),
+            radial-gradient(circle at 92%33%,#f5e9ff 0%,#f5e9ff 2px,transparent 4px),
+            radial-gradient(circle at 47%12%,#c9b1ff 0%,#c9b1ff 3px,transparent 4px),
+            radial-gradient(circle at 63%91%,#a98cf0 0%,#a98cf0 2px,transparent 3px),
+            radial-gradient(circle at 5%45%,#bba5ff 0%,#bba5ff 2px,transparent 3px);
+            background-repeat:no-repeat; background-size:100%100%; opacity:0.8; pointer-events:none; }
+        .container { max-width:1280px; margin:0 auto; padding:0 24px; position:relative; z-index:2; backdrop-filter:blur(1px); }
+        .navbar { display:flex; justify-content:space-between; align-items:center; padding:24px 0; flex-wrap:wrap; border-bottom:2px solid #4c3f78; }
+        .logo-area { display:flex; align-items:center; gap:12px; }
+        .logo-icon { font-size:2rem; color:#cbadff; filter:drop-shadow(0 0 4px #8b6bc0); }
+        .logo-text { background:linear-gradient(135deg,#f0e4ff,#cbb2ff,#e7c1ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-family:'Press Start 2P',cursive; font-size:1.3rem; }
+        .nav-links { display:flex; gap:36px; flex-wrap:wrap; }
+        .nav-links a { color:#d7c7ff; text-decoration:none; font-family:'Press Start 2P',cursive; font-size:0.8rem; border-bottom:3px solid transparent; padding-bottom:6px; }
+        .nav-links a:hover, .active-page { border-bottom-color:#b28eff; color:#fff; }
+        
+        h1 { font-size:2.4rem; color:#fff1d6; text-shadow:4px 4px 0 #4f368a; font-family:'Press Start 2P',cursive; text-align:center; margin:40px 0; }
+        .talk-container { background:#160e2b; border:4px solid #6d53b3; padding:30px; margin:30px 0; box-shadow:12px 12px 0 #312358; }
+        .universe-selector { display:flex; gap:15px; flex-wrap:wrap; margin:20px 0; justify-content:center; }
+        .universe-btn { background:#2e1d4f; border:3px solid #a279d9; padding:12px 25px; font-family:'Press Start 2P',cursive; font-size:0.8rem; color:#fade9f; cursor:pointer; }
+        .universe-btn:hover, .universe-btn.active { background:#3f2b70; border-color:#b28eff; }
+        .chat-box { background:#0e0821; border:4px solid #7f64c2; padding:25px; min-height:200px; margin:25px 0; font-family:'Press Start 2P',cursive; font-size:0.7rem; line-height:1.8; overflow-y:auto; max-height:300px; }
+        .chat-message { margin:10px 0; padding:10px; border-left:4px solid #8f73df; }
+        .chat-message.self { border-left-color:#b28eff; text-align:right; }
+        .query-button { background:#22163b; border:4px solid #8f73df; color:#f0e2ff; padding:12px 35px; font-family:'Press Start 2P',cursive; font-size:1rem; display:inline-block; text-decoration:none; box-shadow:6px 6px 0 #3f2b70; cursor:pointer; border:none; }
+        .query-button:hover { background:#352459; transform:translate(-2px,-2px); box-shadow:8px 8px 0 #533d88; }
+        .footer-links { text-align:center; padding:30px 0; border-top:4px solid #4c3582; margin-top:30px; }
+        .footer-links a { color:#ebd6ff; margin:0 15px; }
+        .input-area { display:flex; gap:15px; margin-top:20px; flex-wrap:wrap; }
+        .message-input { flex:1; background:#0e0821; border:4px solid #7f64c2; padding:15px; color:#fff; font-family:'Press Start 2P',cursive; font-size:0.7rem; min-width:200px; }
+    </style>
+</head>
+<body>
+    <div class="pixel-galaxy"></div>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo-area"><i class="fas fa-cube logo-icon"></i><span class="logo-text">平行人生鏡像</span></div>
+            <div class="nav-links">
+                <a href="index.html">首頁</a>
+                <a href="query.html">查詢宇宙</a>
+                <a href="action.html">提示行動</a>
+                <a href="talk.html" class="active-page">宇宙交談</a>
+            </div>
+        </nav>
+        
+        <h1>✦ 宇宙交談 ✦</h1>
+        
+        <div class="talk-container">
+            <div style="text-align:center; font-family:'Press Start 2P',cursive; margin-bottom:20px;">選擇你想對話的宇宙</div>
+            
+            <div class="universe-selector">
+                <button class="universe-btn active" data-code="042">宇宙 042 (音樂家)</button>
+                <button class="universe-btn" data-code="077">宇宙 077 (醫師)</button>
+                <button class="universe-btn" data-code="099">宇宙 099 (農夫)</button>
+                <button class="universe-btn" data-code="056">宇宙 056 (程式設計師)</button>
+                <button class="universe-btn" data-code="007">宇宙 007 (間諜)</button>
+            </div>
+            
+            <div id="chatDisplay" class="chat-box">
+                <div class="chat-message">
+                    <i class="fas fa-robot"></i> 系統：已連接至宇宙 042<br>
+                    <span style="color:#b28eff;">音樂家:</span> 嗨，另一個我！我正在創作一首新曲子...
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="messageInput" class="message-input" placeholder="輸入訊息..." value="">
+                <button id="sendBtn" class="query-button"><i class="fas fa-paper-plane"></i> 發送</button>
+                <button id="clearBtn" class="query-button"><i class="fas fa-undo"></i> 清除</button>
+            </div>
+        </div>
+        
+        <div style="text-align:center; margin:20px 0;">
+            <a href="query.html" class="query-button" style="display:inline-block; margin:5px;"><i class="fas fa-search"></i> 查詢宇宙</a>
+            <a href="action.html" class="query-button" style="display:inline-block; margin:5px;"><i class="fas fa-lightbulb"></i> 提示行動</a>
+        </div>
+        
+        <div class="footer-links">
+            <a href="index.html">← 回首頁</a> | 
+            <a href="query.html">查詢宇宙</a> | 
+            <a href="action.html">提示行動</a>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chatDisplay');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const universeBtns = document.querySelectorAll('.universe-btn');
+        
+        let currentUniverse = '042';
+        let universeNames = {
+            '042': '音樂家',
+            '077': '醫師',
+            '099': '農夫',
+            '056': '程式設計師',
+            '007': '間諜'
+        };
+        
+        let universeResponses = {
+            '042': ['這首曲子是為你寫的...', '音樂是我存在的意義', '要聽聽我的新作品嗎？'],
+            '077': ['今天做了三台手術', '病人的笑容是最好的報酬', '記得定期健康檢查'],
+            '099': ['今年的收成不錯', '有機耕作很辛苦但值得', '要來體驗田園生活嗎？'],
+            '056': ['這段程式碼寫了三天', 'AI真是神奇', '我們的世界需要更多工程師'],
+            '007': ['任務完成了', '小心你背後', '這個情報很重要']
+        };
+        
+        function addMessage(sender, message, isSelf = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message' + (isSelf ? ' self' : '');
+            if (isSelf) {
+                messageDiv.innerHTML = `<span style="color:#b28eff;">你:</span> ${message}`;
+            } else {
+                messageDiv.innerHTML = `<span style="color:#b28eff;">${universeNames[currentUniverse]}:</span> ${message}`;
+            }
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        universeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                universeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentUniverse = this.getAttribute('data-code');
+                
+                // 清空並加入系統訊息
+                chatBox.innerHTML = '';
+                addMessage('system', `已連接至宇宙 ${currentUniverse} (${universeNames[currentUniverse]})`, false);
+                
+                // 加入歡迎訊息
+                const welcomeMsg = universeResponses[currentUniverse][0] || '你好，另一個我！';
+                addMessage(false, welcomeMsg, false);
+            });
+        });
+        
+        sendBtn.addEventListener('click', function() {
+            const msg = messageInput.value.trim();
+            if (msg) {
+                // 顯示使用者訊息
+                addMessage('你', msg, true);
+                
+                // 隨機回應
+                setTimeout(() => {
+                    const responses = universeResponses[currentUniverse];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage(false, randomResponse, false);
+                }, 500);
+                
+                messageInput.value = '';
+            }
+        });
+        
+        clearBtn.addEventListener('click', function() {
+            chatBox.innerHTML = '';
+            addMessage('system', `對話已清除，重新連接至宇宙 ${currentUniverse}`, false);
+        });
+        
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
